@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Productos</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="login.html">Iniciar Sesión</a>
+            <a href="register.html">Registrarse</a>
+            <a href="products.html">Productos</a>
+        </nav>
+    </header>
+    <main>
+        <ul id="product-list">
+    
+        </ul>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/products')
+                .then(response => response.json())
+                .then(products => {
+                    const productList = document.getElementById('product-list');
+                    products.forEach(product => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${product.title} - $${product.price}`;
+                        productList.appendChild(listItem);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>
